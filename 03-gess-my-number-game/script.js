@@ -10,6 +10,23 @@ const displayMessage = message => {
 const displayNumber = number => {
   document.querySelector('.number').textContent = number;
 };
+const winGame = () => {
+  displayMessage('True Number 😍😍😍');
+  document.querySelector('.highScore').textContent = highScore;
+  displayNumber(secreteNumber);
+  document.querySelector('body').style.backgroundColor = '#60b347';
+  document.querySelector('.number').style.width = '25rem';
+};
+const startGame = () => {
+  score = 20;
+  secreteNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.guess').value = '';
+  document.querySelector('.score').textContent = score;
+  displayNumber('?');
+  document.querySelector('.number').style.width = '15rem';
+  displayMessage('Start guessing...');
+};
 
 document.querySelector('.check').addEventListener('click', () => {
   const guess = +document.querySelector('.guess').value;
@@ -19,11 +36,7 @@ document.querySelector('.check').addEventListener('click', () => {
     displayMessage('the Number is OUT of Range');
   } else if (guess === secreteNumber) {
     highScore = score > highScore ? score : highScore;
-    displayMessage('True Number 😍😍😍');
-    document.querySelector('.highScore').textContent = highScore;
-    displayNumber(secreteNumber);
-    document.querySelector('body').style.backgroundColor = '#60b347';
-    document.querySelector('.number').style.width = '25rem';
+    winGame();
   } else if (guess !== secreteNumber) {
     if (score > 0) {
       displayMessage(
@@ -38,13 +51,6 @@ document.querySelector('.check').addEventListener('click', () => {
   }
 });
 
-document.querySelector('.again').addEventListener('click', function () {
-  score = 20;
-  secreteNumber = Math.trunc(Math.random() * 20) + 1;
-  document.querySelector('body').style.backgroundColor = '#222';
-  document.querySelector('.guess').value = '';
-  document.querySelector('.score').textContent = score;
-  displayNumber('?');
-  document.querySelector('.number').style.width = '15rem';
-  displayMessage('Start guessing...');
+document.querySelector('.again').addEventListener('click', () => {
+  startGame();
 });
