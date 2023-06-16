@@ -32,25 +32,28 @@ document.querySelector('.check').addEventListener('click', () => {
   const guess = +document.querySelector('.guess').value;
   if (!guess) {
     displayMessage('NO Number 😫😫');
-  } else if (guess > 20 || guess < 0) {
+    return;
+  }
+  if (guess > 20 || guess < 0) {
     displayMessage('the Number is OUT of Range');
-  } else if (guess === secreteNumber) {
+    return;
+  }
+  if (guess === secreteNumber) {
     highScore = score > highScore ? score : highScore;
     winGame();
-  } else if (guess !== secreteNumber) {
-    if (score > 0) {
-      displayMessage(
-        guess > secreteNumber ? 'high number 😚😚😚😚' : 'Low Number 🙄🙄🙄🙄'
-      );
-      score--;
-      document.querySelector('.score').textContent = score;
-    } else {
-      displayMessage('YOU LOSS THE GAME 😪😪😪😪😪😪😪');
-      displayNumber(secreteNumber);
-    }
+    return;
   }
+
+  if (score > 0) {
+    displayMessage(
+      guess > secreteNumber ? 'high number 😚😚😚😚' : 'Low Number 🙄🙄🙄🙄'
+    );
+    score--;
+    document.querySelector('.score').textContent = score;
+    return;
+  }
+  displayMessage('YOU LOSS THE GAME 😪😪😪😪😪😪😪');
+  displayNumber(secreteNumber);
 });
 
-document.querySelector('.again').addEventListener('click', () => {
-  startGame();
-});
+document.querySelector('.again').addEventListener('click', startGame);
